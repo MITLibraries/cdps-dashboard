@@ -50,6 +50,7 @@ show-fixes = true
 [tool.ruff.lint]
 select = ["ALL", "PT"]
 ignore = [
+    "B018",
     "C90",
     "COM812",
     "D100",

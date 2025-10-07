@@ -2,13 +2,12 @@
 # requires-python = ">=3.13"
 # dependencies = [
 #     "marimo",
-#     "tinydb==4.8.2",
 # ]
 # ///
 
 import marimo
 
-__generated_with = "0.14.17"
+__generated_with = "0.16.5"
 app = marimo.App(width="medium")
 
 
@@ -21,65 +20,40 @@ def _():
 
 @app.cell
 def _(mo):
-    mo.md(
-        """
-    # Hello Marimo Notebook Template World! 👋📓🌍
-
-    Welcome to the `marimo-notebook-template` repository.  You can find more in the template repository [README](https://github.com/MITLibraries/marimo-notebook-template/blob/main/README.md).
-    """
-    )
+    mo.md("""# CDPS Dashboard""")
     return
 
 
 @app.cell
 def _(mo):
-    import sys
+    file_count = {"total": "3"}
+    file_extensions = {"pdf": "1", "tiff": "2"}
+    storage = {"total": "1234"}
 
-    mo.md(f"""Python version: `{sys.version}`""")
-    return
-
-
-@app.cell
-def _(mo):
-    mo.md(
-        """This notebook exemplifies using [inline dependencies](https://docs.marimo.io/guides/package_management/inlining_dependencies/).  The external package `tinydb` is installed as a dependency via inline dependencies at the top of this `notebook.py` file, then imported and used in the following cell..."""
+    data = mo.ui.dropdown(
+        options={
+            "File - Count": file_count,
+            "File - Extensions": file_extensions,
+            "Storage": storage,
+        },
+        label="Select a data type:",
     )
-    return
+    data
+    return (data,)
 
 
 @app.cell
-def _(mo):
-    import tempfile
+def _(data, mo):
+    import json
 
-    from tinydb import TinyDB
-
-    with tempfile.TemporaryDirectory() as tmpdir:
-        db = TinyDB(f"{tmpdir}/db.json")
-        db.insert({"name": "test"})
-        results = db.all()
-
-    mo.md(
-        f"""
-    TinyDB loaded: `OK`<br>
-    Results: `{results}`
-    """
-    )
-    return
-
-
-@app.cell
-def _(mo):
-    mo.md(
-        """
-    The following cell demonstrates a test embedded into the notebook itself.  As noted in the template README, tests may also be added to the `/tests` folder.
-    """
-    )
-    return
-
-
-@app.cell
-def test_fortytwo_addition():
-    assert 42 == 40 + 2
+    if not data.selected_key:
+        markdown_str = ""
+    else:
+        markdown_str = f"""
+            ## {data.selected_key}
+            {json.dumps(data.value)}
+            """
+    mo.md(markdown_str)
     return
 
 
