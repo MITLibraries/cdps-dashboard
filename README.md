@@ -1,6 +1,8 @@
 # cdps-dashboard
 
 ## Developing 
+As this dashboard relies on S3 Inventory data, authenticate with `Dev1` credentials before editing.
+
 The recommended approach for developing a Marimo notebook is to use the Marimo GUI editor:
 
 ```shell

@@ -7,6 +7,9 @@ dependencies = [
     "marimo>=0.14.17",
 ]
 
+[tool.marimo.runtime]
+dotenv = [".env"]
+
 [dependency-groups]
 dev = [
     "black>=25.1.0",
@@ -64,6 +67,7 @@ ignore = [
     "EM102",
     "FIX002",
     "G004",
+    "N803",
     "N812",
     "PLR0912",
     "PLR0913",
@@ -79,6 +83,9 @@ fixable = ["E", "F", "I", "Q"]
 
 [tool.ruff.lint.flake8-annotations]
 mypy-init-return = true
+
+[tool.ruff.lint.flake8-boolean-trap]
+extend-allowed-calls = ["numpy.where"]
 
 [tool.ruff.lint.flake8-pytest-style]
 fixture-parentheses = false
