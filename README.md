@@ -34,7 +34,8 @@ uv run marimo run --sandbox --headless --no-token notebook.py
 
 ### Required
 ```shell
-# add required env vars here...
+S3_INVENTORY_LOCATIONS=# A comma-delimited list of S3 URIs containing S3 Inventory symlink.txt files.
+DIGITIZED_BAG_IDS=# A list of bag IDs used by `is_digitized_aip` function. TO BE DEPRECATED IN FUTURE COMMITS
 ```
 
 ### Optional
